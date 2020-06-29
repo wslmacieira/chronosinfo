@@ -160,3 +160,15 @@ if ( version_compare( PHP_VERSION, '5.3', '>=' ) ) {
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-filters.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-hooks.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-functions.php';
+
+	// shortcodes conteúdo só para admin
+function access_content_admin( $atts, $content = null ) {
+	if ( !current_user_can('update_core')) {
+	return $content;
+	}
+	else {
+	$content = 'Conteudo Admin';
+	return $content; 
+	}
+	}
+	add_shortcode('admin', 'access_content_admin');
